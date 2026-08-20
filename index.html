@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-Kit — 85 Vue 3 components. One file each. Zero lock-in.</title>
+<meta name="description" content="85 drop-in Vue 3 components across 10 categories. No package, no build step, 4 live themes baked into every file. Free core, one-time Pro pack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ---------------------------------------------------------
+   V-Kit token system — the same 4 themes the product ships.
+   This page runs on its own product: switch the theme buttons
+   in the nav and every color on the page is live-recomputed.
+--------------------------------------------------------- */
+:root, [data-theme="light"]{
+  --bg:#F7F7F5; --surface:#FFFFFF; --surface-2:#EFEFEC; --line:#E1E1DD;
+  --text:#15171B; --dim:#65686F; --accent:#0C9C87; --accent-ink:#FFFFFF;
+  --warn:#B5670C; --warn-ink:#FFFFFF; --shadow:0 1px 2px rgba(20,20,20,.06);
+}
+[data-theme="dark"]{
+  --bg:#0D1117; --surface:#161B22; --surface-2:#1C2129; --line:#2B313B;
+  --text:#E6EDF3; --dim:#8B949E; --accent:#5EEAD4; --accent-ink:#0D1117;
+  --warn:#F59E0B; --warn-ink:#1A1204; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+[data-theme="ocean"]{
+  --bg:#0B2027; --surface:#0F2C34; --surface-2:#123742; --line:#1D4B57;
+  --text:#E4F5F7; --dim:#8FB9C0; --accent:#4FD1E8; --accent-ink:#052228;
+  --warn:#F0A93E; --warn-ink:#241300; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+[data-theme="sunset"]{
+  --bg:#241209; --surface:#2F1A0D; --surface-2:#3A2211; --line:#4E3018;
+  --text:#F8ECDF; --dim:#C7A98B; --accent:#F59E0B; --accent-ink:#241209;
+  --warn:#5EEAD4; --warn-ink:#062A24; --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.02em}
+code,.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+::selection{background:var(--accent);color:var(--accent-ink)}
+
+/* ---------- nav ---------- */
+nav{border-bottom:1px solid var(--line);position:sticky;top:0;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(10px);z-index:50;transition:.25s}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:19px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.logo .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.nav-links{display:flex;gap:24px;font-size:14px;color:var(--dim)}
+.nav-links a{text-decoration:none;white-space:nowrap}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+
+/* theme switcher — the site's own signature control */
+.theme-switch{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:20px;padding:3px}
+.theme-switch button{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:.15s}
+.theme-switch button.active{border-color:var(--text)}
+.ts-light{background:#F7F7F5}
+.ts-dark{background:#0D1117}
+.ts-ocean{background:#0B2027}
+.ts-sunset{background:#241209}
+
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line);transition:.15s;cursor:pointer;background:transparent;color:var(--text);font-family:'Inter'}
+.btn-primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-ghost:hover{border-color:var(--dim)}
+
+/* ---------- hero ---------- */
+.hero{padding:96px 0 60px;text-align:center}
+.eyebrow{font-family:'JetBrains Mono';font-size:13px;color:var(--accent);letter-spacing:.02em;margin-bottom:18px}
+.hero h1{font-size:54px;line-height:1.06;max-width:800px;margin:0 auto 22px}
+.hero p{color:var(--dim);font-size:18px;max-width:580px;margin:0 auto 34px}
+.hero-ctas{display:flex;gap:12px;justify-content:center;margin-bottom:20px}
+.hero-note{font-family:'JetBrains Mono';font-size:12.5px;color:var(--dim);margin-bottom:56px}
+.hero-note b{color:var(--text)}
+
+.demo-strip{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:40px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;max-width:840px;margin:0 auto;box-shadow:var(--shadow)}
+.demo-item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.demo-item .lbl{font-family:'JetBrains Mono';font-size:11px;color:var(--dim)}
+
+.vbtn{padding:9px 20px;border-radius:8px;background:var(--accent);color:var(--accent-ink);border:none;font-family:'Inter';font-weight:600;font-size:14px;cursor:pointer;transition:.15s}
+.vbtn:hover{transform:translateY(-1px)}
+.vtoggle{width:44px;height:24px;border-radius:12px;background:var(--line);position:relative;cursor:pointer;border:none;transition:.2s}
+.vtoggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.vtoggle.on{background:var(--accent)}
+.vtoggle.on::after{left:22px}
+.vslider{width:120px;accent-color:var(--accent)}
+.vchip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:var(--surface-2);border:1px solid var(--line);font-size:13px}
+.vchip .dot2{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+/* ---------- sections ---------- */
+section{padding:88px 0}
+.section-head{text-align:center;margin-bottom:44px}
+.section-head .eyebrow{margin-bottom:10px}
+.section-head h2{font-size:34px}
+.section-head p{color:var(--dim);margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto}
+
+/* ---------- category tabs ---------- */
+.cat-tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.cat-tab{font-family:'JetBrains Mono';font-size:12.5px;padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:var(--surface);color:var(--dim);cursor:pointer;transition:.15s;white-space:nowrap}
+.cat-tab:hover{color:var(--text);border-color:var(--dim)}
+.cat-tab.active{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.cat-tab .n{opacity:.65;margin-left:4px}
+
+/* ---------- component grid ---------- */
+.cat-panel{display:none}
+.cat-panel.active{display:block}
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.comp-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px;min-height:150px;transition:.15s}
+.comp-card:hover{border-color:var(--dim)}
+.comp-card .head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.comp-card .cname{font-family:'JetBrains Mono';font-size:12.5px;color:var(--text)}
+.comp-card .badge{font-family:'JetBrains Mono';font-size:10px;padding:2px 7px;border-radius:10px;flex-shrink:0}
+.badge.free{background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent)}
+.badge.pro{background:color-mix(in srgb, var(--warn) 18%, transparent);color:var(--warn)}
+.comp-card .demo{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px}
+
+/* ---------- mini-demo visual primitives (reused across all 85 cards) ---------- */
+.d-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center}
+.d-col{display:flex;flex-direction:column;gap:6px;align-items:center}
+.d-box{background:var(--surface-2);border:1px solid var(--line);border-radius:6px}
+.d-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.d-dotd{width:7px;height:7px;border-radius:50%;background:var(--dim)}
+.d-bar{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden;position:relative}
+.d-bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.d-txt{font-family:'JetBrains Mono';font-size:10.5px;color:var(--dim)}
+.d-txt b{color:var(--text)}
+.d-pill{padding:4px 10px;border-radius:20px;font-size:11px;font-family:'JetBrains Mono'}
+.d-icon{width:28px;height:28px;border-radius:6px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--dim)}
+.d-avatar{width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;font-family:'JetBrains Mono'}
+.d-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:var(--surface-2);border:1px solid var(--line);font-size:11px}
+
+.d-accordion{width:100%;font-size:11px}
+.d-accordion .h{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);cursor:pointer;color:var(--text)}
+.d-accordion .b{max-height:0;overflow:hidden;transition:.2s;color:var(--dim);font-size:10.5px}
+.d-accordion.open .b{max-height:40px;padding-top:6px}
+.d-accordion.open .chev{transform:rotate(90deg)}
+.chev{transition:.2s;display:inline-block}
+
+.d-tabs{display:flex;gap:4px}
+.d-tabs span{padding:5px 11px;border-radius:6px;font-size:11px;font-family:'JetBrains Mono';cursor:pointer;color:var(--dim)}
+.d-tabs span.on{background:var(--accent);color:var(--accent-ink)}
+
+.d-rating{display:flex;gap:3px;font-size:16px;cursor:pointer}
+.d-rating span{color:var(--line)}
+.d-rating span.on{color:var(--accent)}
+
+.d-tooltip-wrap{position:relative;display:inline-block}
+.d-tooltip-pop{position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);font-size:10px;padding:4px 8px;border-radius:5px;white-space:nowrap;opacity:0;pointer-events:none;transition:.15s}
+.d-tooltip-wrap:hover .d-tooltip-pop{opacity:1}
+
+.d-spinner{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--surface-2);border-top-color:var(--accent);animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.d-skeleton{width:100%}
+.d-skeleton .ln{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--surface-2) 25%,var(--line) 50%,var(--surface-2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;margin-bottom:6px}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+.d-otp{display:flex;gap:5px}
+.d-otp i{width:20px;height:24px;border-radius:5px;font-style:normal}
+
+.d-kbd{padding:3px 8px;border-radius:5px;border:1px solid var(--line);border-bottom-width:2px;font-family:'JetBrains Mono';font-size:11px;background:var(--surface-2)}
+
+.d-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;width:100%}
+.d-cal span{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--dim);border-radius:3px}
+.d-cal span.on{background:var(--accent);color:var(--accent-ink)}
+
+.d-gauge{width:52px;height:26px;border-radius:52px 52px 0 0;border:5px solid var(--surface-2);border-bottom:none;position:relative;overflow:hidden}
+.d-gauge i{position:absolute;bottom:0;left:0;width:100%;height:100%;border-radius:52px 52px 0 0;border:5px solid var(--accent);border-bottom:none;border-right-color:transparent;border-top-color:transparent;box-sizing:border-box}
+
+.d-timeline{display:flex;flex-direction:column;gap:0;width:100%}
+.d-timeline .row{display:flex;gap:8px;align-items:center}
+.d-timeline .ln{width:1px;height:14px;background:var(--line);margin-left:3px}
+
+.d-tree{width:100%;font-size:10px;color:var(--dim)}
+.d-tree .r{display:flex;align-items:center;gap:5px;padding:2px 0}
+.d-tree .r2{padding-left:14px}
+
+.d-table{width:100%;border-collapse:collapse;font-size:9px}
+.d-table div{display:flex;gap:1px;margin-bottom:2px}
+.d-table span{flex:1;height:10px;background:var(--surface-2);border-radius:2px}
+
+.d-slider-track{width:110px;height:4px;border-radius:2px;background:var(--surface-2);position:relative}
+.d-slider-track i{position:absolute;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--surface)}
+
+/* ---------- pricing ---------- */
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:780px;margin:0 auto}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:32px;text-align:left}
+.plan.pro{border-color:var(--warn)}
+.plan .tier{font-family:'JetBrains Mono';font-size:13px;color:var(--dim);margin-bottom:8px}
+.plan.pro .tier{color:var(--warn)}
+.plan .price{font-family:'Space Grotesk';font-size:38px;margin-bottom:4px}
+.plan .price span{font-size:15px;color:var(--dim);font-weight:400}
+.plan .count{color:var(--dim);font-size:14px;margin-bottom:24px}
+.plan ul{list-style:none;margin-bottom:28px}
+.plan li{font-size:14px;padding:7px 0;border-bottom:1px solid var(--surface-2);display:flex;gap:8px}
+.plan li::before{content:'✓';color:var(--accent)}
+.plan.pro li::before{color:var(--warn)}
+.plan .btn{width:100%;justify-content:center}
+.plan.pro .btn-primary{background:var(--warn);color:var(--warn-ink);border-color:var(--warn)}
+
+/* ---------- why section ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.why-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px}
+.why-card .n{font-family:'JetBrains Mono';font-size:12px;color:var(--accent);margin-bottom:10px}
+.why-card h3{font-size:17px;margin-bottom:8px}
+.why-card p{color:var(--dim);font-size:13.5px}
+
+footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:var(--dim);font-size:13px}
+
+@media(max-width:900px){.why-grid{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .hero h1{font-size:32px}
+  .pricing-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .comp-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>V-Kit</div>
+    <div class="nav-links">
+      <a href="#components">Components</a>
+      <a href="#why">Why V-Kit</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="nav-right">
+      <div class="theme-switch" role="group" aria-label="Theme">
+        <button class="ts-light" data-theme-btn="light" title="Light" aria-label="Light theme"></button>
+        <button class="ts-dark active" data-theme-btn="dark" title="Dark" aria-label="Dark theme"></button>
+        <button class="ts-ocean" data-theme-btn="ocean" title="Ocean" aria-label="Ocean theme"></button>
+        <button class="ts-sunset" data-theme-btn="sunset" title="Sunset" aria-label="Sunset theme"></button>
+      </div>
+      <a class="btn btn-primary" href="#pricing">Get V-Kit</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">// 85 components · vue 3 · zero lock-in</div>
+    <h1>Components you drop in,<br>not a framework you adopt.</h1>
+    <p>Copy one .vue file. No package to install, no build config to fight, no dependency to update in six months. Every component just works — in whichever of these 4 themes you're looking at right now.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#pricing">Download free pack →</a>
+      <a class="btn btn-ghost" href="#components">Browse all 85</a>
+    </div>
+    <div class="hero-note">↑ try the theme switcher — <b>this entire page</b> is running on V-Kit's own tokens</div>
+
+    <div class="demo-strip">
+      <div class="demo-item">
+        <button class="vbtn" onclick="this.textContent = this.textContent==='Click me'?'Clicked ✓':'Click me'">Click me</button>
+        <span class="lbl">v-button</span>
+      </div>
+      <div class="demo-item">
+        <button class="vtoggle" onclick="this.classList.toggle('on')"></button>
+        <span class="lbl">v-toggle-switch</span>
+      </div>
+      <div class="demo-item">
+        <input type="range" class="vslider" min="0" max="100" value="60">
+        <span class="lbl">v-slider</span>
+      </div>
+      <div class="demo-item">
+        <span class="vchip"><span class="dot2"></span>Production</span>
+        <span class="lbl">v-chip</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">// why not just use a UI library</div>
+      <h2>Ownership beats installation.</h2>
+      <p>Component libraries are usually a dependency you're stuck maintaining. V-Kit is files you own.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="n">01</div>
+        <h3>No breaking upgrades</h3>
+        <p>There's no package.json entry to bump, no changelog to read before your build breaks. The component is in your repo — it changes when you change it.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">02</div>
+        <h3>No bundle bloat</h3>
+        <p>You take the 3 components you need, not the 80 you don't. Every download is self-contained — no v-kit runtime hiding in your node_modules.</p>
+      </div>
+      <div class="why-card">
+        <div class="n">03</div>
+        <h3>Theming that isn't a fight</h3>
+        <p>4 themes ship inside every single file as plain CSS variables. Override one token, or swap the whole palette — no theme provider, no context wrapper.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="components">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">// the full library</div>
+      <h2>All 85 components, live.</h2>
+      <p>Every card below is a real preview, not a screenshot. Pick a category — mint badge means it's in the free pack.</p>
+    </div>
+    <div class="cat-tabs" id="cat-tabs">
+<button class="cat-tab active" data-tab="actions">Actions<span class="n">7</span></button>
+<button class="cat-tab" data-tab="selection">Selection<span class="n">11</span></button>
+<button class="cat-tab" data-tab="date-and-time">Date &amp; Time<span class="n">7</span></button>
+<button class="cat-tab" data-tab="inputs">Inputs<span class="n">11</span></button>
+<button class="cat-tab" data-tab="color">Color<span class="n">4</span></button>
+<button class="cat-tab" data-tab="overlays">Overlays<span class="n">8</span></button>
+<button class="cat-tab" data-tab="feedback">Feedback<span class="n">6</span></button>
+<button class="cat-tab" data-tab="layout">Layout<span class="n">8</span></button>
+<button class="cat-tab" data-tab="behaviors">Behaviors<span class="n">4</span></button>
+<button class="cat-tab" data-tab="display">Display<span class="n">19</span></button>
+    </div>
+    <div id="cat-panels">
+<div class="cat-panel active" data-panel="actions">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-button</span><span class="badge free">FREE</span></div>
+  <div class="demo"><button class="vbtn" style="padding:6px 14px;font-size:12px">Action</button></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-button-group</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row"><span class="d-pill d-box" style="background:var(--accent);color:var(--accent-ink)">Day</span><span class="d-pill d-box">Week</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-split-button</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row" style="gap:0"><button class="vbtn" style="border-radius:6px 0 0 6px;padding:6px 12px;font-size:12px">Save</button><button class="vbtn" style="border-radius:0 6px 6px 0;padding:6px 8px;font-size:12px;border-left:1px solid color-mix(in srgb, var(--accent-ink) 25%, transparent)">▾</button></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-menu-button</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><button class="vbtn" style="padding:6px 14px;font-size:12px">Actions ▾</button></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-checkbox-button</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row"><span class="d-box" style="width:16px;height:16px;background:var(--accent)"></span><span class="d-txt">Subscribe</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-radio-button</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row"><span class="d-box" style="width:14px;height:14px;border-radius:50%;background:var(--accent)"></span><span class="d-box" style="width:14px;height:14px;border-radius:50%"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-file-upload</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-icon" style="width:44px;height:36px;border:1.5px dashed var(--line);border-radius:8px;background:transparent">⇧</div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="selection">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-select</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px;width:100%;justify-content:space-between"><span class="d-txt">Engineering</span><span class="d-txt">▾</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-combo-box</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px;width:100%;justify-content:space-between"><span class="d-txt">Type to filter…</span><span class="d-txt">▾</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-suggest-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box" style="padding:7px 10px;width:100%"><span class="d-txt">Che<b>nnai</b></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-token-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:6px;width:100%"><span class="d-chip">vue<span style="opacity:.5">×</span></span><span class="d-chip">react<span style="opacity:.5">×</span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-list-box</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:2px"><span class="d-box" style="padding:4px 8px;background:var(--accent);color:var(--accent-ink)" ><span class="d-txt" style="color:inherit">Draft</span></span><span class="d-box" style="padding:4px 8px"><span class="d-txt">Sent</span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-dropdown-list</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-box d-col" style="padding:6px;width:100%;align-items:stretch;gap:3px"><span class="d-txt" style="padding:2px 4px;background:var(--surface-2);border-radius:4px">Option A</span><span class="d-txt" style="padding:2px 4px">Option B</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-selectable</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-box" style="width:22px;height:22px;background:var(--accent)"></span><span class="d-box" style="width:22px;height:22px"></span><span class="d-box" style="width:22px;height:22px"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-transfer-list</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><div class="d-box" style="width:40px;height:36px"></div><span class="d-txt">⇄</span><div class="d-box" style="width:40px;height:36px;background:var(--surface)"></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-color-select</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span style="width:16px;height:16px;border-radius:4px;background:#F59E0B"></span><span style="width:16px;height:16px;border-radius:4px;background:#5EEAD4"></span><span style="width:16px;height:16px;border-radius:4px;background:#8B5CF6"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-date-select</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px"><span class="d-txt">📅 Aug 19</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-datetime-select</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px"><span class="d-txt">📅 Aug 19, 14:30</span></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="date-and-time">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-date-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px;width:100%;justify-content:space-between"><span class="d-txt">19 / 08 / 2026</span><span>📅</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-date-picker</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-cal"><span class="">1</span><span class="">2</span><span class="">3</span><span class="">4</span><span class="">5</span><span class="">6</span><span class="">7</span><span class="">8</span><span class="">9</span><span class="">10</span><span class="">11</span><span class="on">12</span><span class="">13</span><span class="">14</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-date-range-picker</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><div class="d-box" style="padding:5px 8px"><span class="d-txt">Aug 10</span></div><span class="d-txt">→</span><div class="d-box" style="padding:5px 8px"><span class="d-txt">Aug 19</span></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-time-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px"><span class="d-txt">🕐 14:30</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-datetime-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px"><span class="d-txt">Aug 19, 14:30</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-datetime-picker</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-cal"><span class="">1</span><span class="">2</span><span class="">3</span><span class="">4</span><span class="">5</span><span class="">6</span><span class="">7</span><span class="">8</span><span class="">9</span><span class="">10</span><span class="">11</span><span class="on">12</span><span class="">13</span><span class="">14</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-datetime-range-picker</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><div class="d-box" style="padding:5px 8px"><span class="d-txt">Aug 10</span></div><span class="d-txt">→</span><div class="d-box" style="padding:5px 8px"><span class="d-txt">Aug 19</span></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="inputs">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-number-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:5px 4px 5px 10px"><span class="d-txt" style="margin-right:8px">12</span><span class="d-col" style="gap:0"><span style="font-size:8px;color:var(--dim)">▲</span><span style="font-size:8px;color:var(--dim)">▼</span></span></div></div>
