@@ -439,3 +439,51 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 <div class="comp-card">
   <div class="head"><span class="cname">v-number-field</span><span class="badge pro">PRO</span></div>
   <div class="demo"><div class="d-box d-row" style="padding:5px 4px 5px 10px"><span class="d-txt" style="margin-right:8px">12</span><span class="d-col" style="gap:0"><span style="font-size:8px;color:var(--dim)">▲</span><span style="font-size:8px;color:var(--dim)">▼</span></span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<script>
+(function(){
+  var THEMES = ['light','dark','ocean','sunset'];
+  var root = document.documentElement;
+  var themeButtons = document.querySelectorAll('[data-theme-btn]');
+
+  function setTheme(theme){
+    if (THEMES.indexOf(theme) === -1) return;
+    root.setAttribute('data-theme', theme);
+    themeButtons.forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.themeBtn === theme);
+    });
+    try { localStorage.setItem('vkit-theme', theme); } catch (e) {}
+  }
+
+  themeButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){ setTheme(btn.dataset.themeBtn); });
+  });
+
+  try {
+    var saved = localStorage.getItem('vkit-theme');
+    if (saved) setTheme(saved);
+  } catch (e) {}
+
+  var catTabs = document.querySelectorAll('.cat-tab');
+  var catPanels = document.querySelectorAll('.cat-panel');
+
+  function setCategory(tab){
+    catTabs.forEach(function(t){ t.classList.toggle('active', t === tab); });
+    catPanels.forEach(function(panel){
+      panel.classList.toggle('active', panel.dataset.panel === tab.dataset.tab);
+    });
+  }
+
+  catTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){ setCategory(tab); });
+  });
+})();
+</script>
+</body>
+</html>
