@@ -306,20 +306,20 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
       <h2>All 85 components, live.</h2>
       <p>Every card below is a real preview, not a screenshot. Pick a category — mint badge means it's in the free pack.</p>
     </div>
-    <div class="cat-tabs" id="cat-tabs">
-<button class="cat-tab active" data-tab="actions">Actions<span class="n">7</span></button>
-<button class="cat-tab" data-tab="selection">Selection<span class="n">11</span></button>
-<button class="cat-tab" data-tab="date-and-time">Date &amp; Time<span class="n">7</span></button>
-<button class="cat-tab" data-tab="inputs">Inputs<span class="n">11</span></button>
-<button class="cat-tab" data-tab="color">Color<span class="n">4</span></button>
-<button class="cat-tab" data-tab="overlays">Overlays<span class="n">8</span></button>
-<button class="cat-tab" data-tab="feedback">Feedback<span class="n">6</span></button>
-<button class="cat-tab" data-tab="layout">Layout<span class="n">8</span></button>
-<button class="cat-tab" data-tab="behaviors">Behaviors<span class="n">4</span></button>
-<button class="cat-tab" data-tab="display">Display<span class="n">19</span></button>
+    <div class="cat-tabs" id="cat-tabs" role="tablist" aria-label="Component categories">
+<button class="cat-tab active" data-tab="actions" role="tab" id="tab-actions" aria-selected="true" aria-controls="panel-actions">Actions<span class="n">7</span></button>
+<button class="cat-tab" data-tab="selection" role="tab" id="tab-selection" aria-selected="false" aria-controls="panel-selection" tabindex="-1">Selection<span class="n">11</span></button>
+<button class="cat-tab" data-tab="date-and-time" role="tab" id="tab-date-and-time" aria-selected="false" aria-controls="panel-date-and-time" tabindex="-1">Date &amp; Time<span class="n">7</span></button>
+<button class="cat-tab" data-tab="inputs" role="tab" id="tab-inputs" aria-selected="false" aria-controls="panel-inputs" tabindex="-1">Inputs<span class="n">11</span></button>
+<button class="cat-tab" data-tab="color" role="tab" id="tab-color" aria-selected="false" aria-controls="panel-color" tabindex="-1">Color<span class="n">4</span></button>
+<button class="cat-tab" data-tab="overlays" role="tab" id="tab-overlays" aria-selected="false" aria-controls="panel-overlays" tabindex="-1">Overlays<span class="n">8</span></button>
+<button class="cat-tab" data-tab="feedback" role="tab" id="tab-feedback" aria-selected="false" aria-controls="panel-feedback" tabindex="-1">Feedback<span class="n">6</span></button>
+<button class="cat-tab" data-tab="layout" role="tab" id="tab-layout" aria-selected="false" aria-controls="panel-layout" tabindex="-1">Layout<span class="n">8</span></button>
+<button class="cat-tab" data-tab="behaviors" role="tab" id="tab-behaviors" aria-selected="false" aria-controls="panel-behaviors" tabindex="-1">Behaviors<span class="n">4</span></button>
+<button class="cat-tab" data-tab="display" role="tab" id="tab-display" aria-selected="false" aria-controls="panel-display" tabindex="-1">Display<span class="n">19</span></button>
     </div>
     <div id="cat-panels">
-<div class="cat-panel active" data-panel="actions">
+<div class="cat-panel active" data-panel="actions" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-button</span><span class="badge free">FREE</span></div>
@@ -352,7 +352,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="selection">
+<div class="cat-panel" data-panel="selection" id="panel-selection" role="tabpanel" aria-labelledby="tab-selection" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-select</span><span class="badge free">FREE</span></div>
@@ -401,7 +401,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="date-and-time">
+<div class="cat-panel" data-panel="date-and-time" id="panel-date-and-time" role="tabpanel" aria-labelledby="tab-date-and-time" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-date-field</span><span class="badge pro">PRO</span></div>
@@ -434,7 +434,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="inputs">
+<div class="cat-panel" data-panel="inputs" id="panel-inputs" role="tabpanel" aria-labelledby="tab-inputs" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-number-field</span><span class="badge pro">PRO</span></div>
@@ -483,7 +483,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="color">
+<div class="cat-panel" data-panel="color" id="panel-color" role="tabpanel" aria-labelledby="tab-color" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-color-picker</span><span class="badge pro">PRO</span></div>
@@ -504,7 +504,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="behaviors">
+<div class="cat-panel" data-panel="behaviors" id="panel-behaviors" role="tabpanel" aria-labelledby="tab-behaviors" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-draggable</span><span class="badge pro">PRO</span></div>
@@ -525,7 +525,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="feedback">
+<div class="cat-panel" data-panel="feedback" id="panel-feedback" role="tabpanel" aria-labelledby="tab-feedback" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-progress-bar</span><span class="badge free">FREE</span></div>
@@ -554,7 +554,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="overlays">
+<div class="cat-panel" data-panel="overlays" id="panel-overlays" role="tabpanel" aria-labelledby="tab-overlays" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-dialog</span><span class="badge pro">PRO</span></div>
@@ -591,7 +591,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="layout">
+<div class="cat-panel" data-panel="layout" id="panel-layout" role="tabpanel" aria-labelledby="tab-layout" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-card</span><span class="badge free">FREE</span></div>
@@ -628,7 +628,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="display">
+<div class="cat-panel" data-panel="display" id="panel-display" role="tabpanel" aria-labelledby="tab-display" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-alert-banner</span><span class="badge free">FREE</span></div>
@@ -737,18 +737,35 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
     if (saved) setTheme(saved);
   } catch (e) {}
 
-  var catTabs = document.querySelectorAll('.cat-tab');
+  var catTabs = Array.prototype.slice.call(document.querySelectorAll('.cat-tab'));
   var catPanels = document.querySelectorAll('.cat-panel');
 
-  function setCategory(tab){
-    catTabs.forEach(function(t){ t.classList.toggle('active', t === tab); });
+  function setCategory(tab, focusTab){
+    catTabs.forEach(function(t){
+      var active = t === tab;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.tabIndex = active ? 0 : -1;
+    });
     catPanels.forEach(function(panel){
       panel.classList.toggle('active', panel.dataset.panel === tab.dataset.tab);
     });
+    if (focusTab) tab.focus();
   }
 
-  catTabs.forEach(function(tab){
+  catTabs.forEach(function(tab, i){
     tab.addEventListener('click', function(){ setCategory(tab); });
+    tab.addEventListener('keydown', function(e){
+      var next;
+      if (e.key === 'ArrowRight') next = catTabs[(i + 1) % catTabs.length];
+      else if (e.key === 'ArrowLeft') next = catTabs[(i - 1 + catTabs.length) % catTabs.length];
+      else if (e.key === 'Home') next = catTabs[0];
+      else if (e.key === 'End') next = catTabs[catTabs.length - 1];
+      if (next) {
+        e.preventDefault();
+        setCategory(next, true);
+      }
+    });
   });
 })();
 </script>
