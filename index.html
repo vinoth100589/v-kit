@@ -715,6 +715,10 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 
 <script>
 (function(){
+  document.querySelectorAll('.comp-card .demo').forEach(function(demo){
+    demo.setAttribute('aria-hidden', 'true');
+  });
+
   var THEMES = ['light','dark','ocean','sunset'];
   var root = document.documentElement;
   var themeButtons = document.querySelectorAll('[data-theme-btn]');
