@@ -6,6 +6,7 @@
 <title>V-Kit — 85 Vue 3 components. One file each. Zero lock-in.</title>
 <meta name="description" content="85 drop-in Vue 3 components across 10 categories. No package, no build step, 4 live themes baked into every file. Free core, one-time Pro pack.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBEMTExNyIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjciIGZpbGw9IiM1RUVBRDQiLz48L3N2Zz4=">
+<meta name="theme-color" content="#0D1117">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -731,8 +732,10 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
   });
 
   var THEMES = ['light','dark','ocean','sunset'];
+  var THEME_BG = { light: '#F7F7F5', dark: '#0D1117', ocean: '#0B2027', sunset: '#241209' };
   var root = document.documentElement;
   var themeButtons = document.querySelectorAll('[data-theme-btn]');
+  var themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
   function setTheme(theme){
     if (THEMES.indexOf(theme) === -1) return;
@@ -740,6 +743,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
     themeButtons.forEach(function(btn){
       btn.classList.toggle('active', btn.dataset.themeBtn === theme);
     });
+    if (themeColorMeta) themeColorMeta.setAttribute('content', THEME_BG[theme]);
     try { localStorage.setItem('vkit-theme', theme); } catch (e) {}
   }
 
