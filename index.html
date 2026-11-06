@@ -47,6 +47,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-
 h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.02em}
 code,.mono{font-family:'JetBrains Mono',monospace}
 a{color:inherit}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);padding:12px 20px;border-radius:0 0 8px 0;font-size:14px;font-weight:600;z-index:100;text-decoration:none}
+.skip-link:focus{left:0}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 ::selection{background:var(--accent);color:var(--accent-ink)}
 
@@ -238,6 +240,8 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <nav>
   <div class="wrap">
     <div class="logo"><span class="dot"></span>V-Kit</div>
@@ -258,7 +262,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="main-content" tabindex="-1">
   <div class="wrap">
     <div class="eyebrow">// 85 components · vue 3 · zero lock-in</div>
     <h1>Components you drop in,<br>not a framework you adopt.</h1>
