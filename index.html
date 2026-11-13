@@ -286,12 +286,12 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
         <span class="lbl">v-button</span>
       </div>
       <div class="demo-item">
-        <button class="vtoggle" onclick="this.classList.toggle('on')"></button>
-        <span class="lbl">v-toggle-switch</span>
+        <button class="vtoggle" aria-labelledby="demo-lbl-toggle" onclick="this.classList.toggle('on')"></button>
+        <span class="lbl" id="demo-lbl-toggle">v-toggle-switch</span>
       </div>
       <div class="demo-item">
-        <input type="range" class="vslider" min="0" max="100" value="60">
-        <span class="lbl">v-slider</span>
+        <input type="range" class="vslider" aria-labelledby="demo-lbl-slider" min="0" max="100" value="60">
+        <span class="lbl" id="demo-lbl-slider">v-slider</span>
       </div>
       <div class="demo-item">
         <span class="vchip"><span class="dot2"></span>Production</span>
