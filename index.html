@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>V-Kit — 85 Vue 3 components. One file each. Zero lock-in.</title>
 <meta name="description" content="85 drop-in Vue 3 components across 10 categories. No package, no build step, 4 live themes baked into every file. Free core, one-time Pro pack.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="V-Kit — 85 Vue 3 components. One file each. Zero lock-in.">
+<meta property="og:description" content="85 drop-in Vue 3 components across 10 categories. No package, no build step, 4 live themes baked into every file. Free core, one-time Pro pack.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="V-Kit — 85 Vue 3 components. One file each. Zero lock-in.">
+<meta name="twitter:description" content="85 drop-in Vue 3 components across 10 categories. No package, no build step, 4 live themes baked into every file. Free core, one-time Pro pack.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzBEMTExNyIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjciIGZpbGw9IiM1RUVBRDQiLz48L3N2Zz4=">
+<meta name="theme-color" content="#0D1117">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -14,24 +22,28 @@
    in the nav and every color on the page is live-recomputed.
 --------------------------------------------------------- */
 :root, [data-theme="light"]{
+  color-scheme: light;
   --bg:#F7F7F5; --surface:#FFFFFF; --surface-2:#EFEFEC; --line:#E1E1DD;
-  --text:#15171B; --dim:#65686F; --accent:#0C9C87; --accent-ink:#FFFFFF;
-  --warn:#B5670C; --warn-ink:#FFFFFF; --shadow:0 1px 2px rgba(20,20,20,.06);
+  --text:#15171B; --dim:#65686F; --accent:#0C9C87; --accent-text:#097565; --accent-ink:#FFFFFF;
+  --warn:#B5670C; --warn-text:#884D09; --warn-ink:#FFFFFF; --shadow:0 1px 2px rgba(20,20,20,.06);
 }
 [data-theme="dark"]{
+  color-scheme: dark;
   --bg:#0D1117; --surface:#161B22; --surface-2:#1C2129; --line:#2B313B;
-  --text:#E6EDF3; --dim:#8B949E; --accent:#5EEAD4; --accent-ink:#0D1117;
-  --warn:#F59E0B; --warn-ink:#1A1204; --shadow:0 1px 2px rgba(0,0,0,.4);
+  --text:#E6EDF3; --dim:#8B949E; --accent:#5EEAD4; --accent-text:#5EEAD4; --accent-ink:#0D1117;
+  --warn:#F59E0B; --warn-text:#F59E0B; --warn-ink:#1A1204; --shadow:0 1px 2px rgba(0,0,0,.4);
 }
 [data-theme="ocean"]{
+  color-scheme: dark;
   --bg:#0B2027; --surface:#0F2C34; --surface-2:#123742; --line:#1D4B57;
-  --text:#E4F5F7; --dim:#8FB9C0; --accent:#4FD1E8; --accent-ink:#052228;
-  --warn:#F0A93E; --warn-ink:#241300; --shadow:0 1px 2px rgba(0,0,0,.4);
+  --text:#E4F5F7; --dim:#8FB9C0; --accent:#4FD1E8; --accent-text:#4FD1E8; --accent-ink:#052228;
+  --warn:#F0A93E; --warn-text:#F0A93E; --warn-ink:#241300; --shadow:0 1px 2px rgba(0,0,0,.4);
 }
 [data-theme="sunset"]{
+  color-scheme: dark;
   --bg:#241209; --surface:#2F1A0D; --surface-2:#3A2211; --line:#4E3018;
-  --text:#F8ECDF; --dim:#C7A98B; --accent:#F59E0B; --accent-ink:#241209;
-  --warn:#5EEAD4; --warn-ink:#062A24; --shadow:0 1px 2px rgba(0,0,0,.4);
+  --text:#F8ECDF; --dim:#C7A98B; --accent:#F59E0B; --accent-text:#F59E0B; --accent-ink:#241209;
+  --warn:#5EEAD4; --warn-text:#5EEAD4; --warn-ink:#062A24; --shadow:0 1px 2px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -39,6 +51,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-
 h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-0.02em}
 code,.mono{font-family:'JetBrains Mono',monospace}
 a{color:inherit}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);padding:12px 20px;border-radius:0 0 8px 0;font-size:14px;font-weight:600;z-index:100;text-decoration:none}
+.skip-link:focus{left:0}
 .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 ::selection{background:var(--accent);color:var(--accent-ink)}
 
@@ -51,6 +65,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 .nav-links a{text-decoration:none;white-space:nowrap}
 .nav-links a:hover{color:var(--text)}
 .nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:transparent;border:none;cursor:pointer;padding:0}
+.nav-toggle span{display:block;width:100%;height:2px;background:var(--text);border-radius:1px}
 
 /* theme switcher — the site's own signature control */
 .theme-switch{display:flex;gap:4px;background:var(--surface-2);border:1px solid var(--line);border-radius:20px;padding:3px}
@@ -68,7 +84,7 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:6
 
 /* ---------- hero ---------- */
 .hero{padding:96px 0 60px;text-align:center}
-.eyebrow{font-family:'JetBrains Mono';font-size:13px;color:var(--accent);letter-spacing:.02em;margin-bottom:18px}
+.eyebrow{font-family:'JetBrains Mono';font-size:13px;color:var(--accent-text);letter-spacing:.02em;margin-bottom:18px}
 .hero h1{font-size:54px;line-height:1.06;max-width:800px;margin:0 auto 22px}
 .hero p{color:var(--dim);font-size:18px;max-width:580px;margin:0 auto 34px}
 .hero-ctas{display:flex;gap:12px;justify-content:center;margin-bottom:20px}
@@ -112,8 +128,8 @@ section{padding:88px 0}
 .comp-card .head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .comp-card .cname{font-family:'JetBrains Mono';font-size:12.5px;color:var(--text)}
 .comp-card .badge{font-family:'JetBrains Mono';font-size:10px;padding:2px 7px;border-radius:10px;flex-shrink:0}
-.badge.free{background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent)}
-.badge.pro{background:color-mix(in srgb, var(--warn) 18%, transparent);color:var(--warn)}
+.badge.free{background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent-text)}
+.badge.pro{background:color-mix(in srgb, var(--warn) 18%, transparent);color:var(--warn-text)}
 .comp-card .demo{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px}
 
 /* ---------- mini-demo visual primitives (reused across all 85 cards) ---------- */
@@ -203,7 +219,7 @@ section{padding:88px 0}
 /* ---------- why section ---------- */
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
 .why-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px}
-.why-card .n{font-family:'JetBrains Mono';font-size:12px;color:var(--accent);margin-bottom:10px}
+.why-card .n{font-family:'JetBrains Mono';font-size:12px;color:var(--accent-text);margin-bottom:10px}
 .why-card h3{font-size:17px;margin-bottom:8px}
 .why-card p{color:var(--dim);font-size:13.5px}
 
@@ -214,16 +230,30 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
   .hero h1{font-size:32px}
   .pricing-grid{grid-template-columns:1fr}
   .nav-links{display:none}
+  .nav-links.open{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:16px 24px;gap:16px;box-shadow:var(--shadow);z-index:49}
+  .nav-toggle{display:flex}
   .comp-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html{scroll-behavior:auto}
+  *, *::before, *::after{
+    animation-duration:0.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.01ms !important;
+    scroll-behavior:auto !important;
+  }
 }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <nav>
   <div class="wrap">
     <div class="logo"><span class="dot"></span>V-Kit</div>
-    <div class="nav-links">
+    <div class="nav-links" id="nav-links">
       <a href="#components">Components</a>
       <a href="#why">Why V-Kit</a>
       <a href="#pricing">Pricing</a>
@@ -236,17 +266,20 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
         <button class="ts-sunset" data-theme-btn="sunset" title="Sunset" aria-label="Sunset theme"></button>
       </div>
       <a class="btn btn-primary" href="#pricing">Get V-Kit</a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
 
-<section class="hero">
+<section class="hero" id="main-content" tabindex="-1">
   <div class="wrap">
     <div class="eyebrow">// 85 components · vue 3 · zero lock-in</div>
     <h1>Components you drop in,<br>not a framework you adopt.</h1>
     <p>Copy one .vue file. No package to install, no build config to fight, no dependency to update in six months. Every component just works — in whichever of these 4 themes you're looking at right now.</p>
     <div class="hero-ctas">
-      <a class="btn btn-primary" href="#pricing">Download free pack →</a>
+      <a class="btn btn-primary" href="vkit-free.zip" download>Download free pack →</a>
       <a class="btn btn-ghost" href="#components">Browse all 85</a>
     </div>
     <div class="hero-note">↑ try the theme switcher — <b>this entire page</b> is running on V-Kit's own tokens</div>
@@ -257,12 +290,12 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
         <span class="lbl">v-button</span>
       </div>
       <div class="demo-item">
-        <button class="vtoggle" onclick="this.classList.toggle('on')"></button>
-        <span class="lbl">v-toggle-switch</span>
+        <button class="vtoggle" aria-labelledby="demo-lbl-toggle" onclick="this.classList.toggle('on')"></button>
+        <span class="lbl" id="demo-lbl-toggle">v-toggle-switch</span>
       </div>
       <div class="demo-item">
-        <input type="range" class="vslider" min="0" max="100" value="60">
-        <span class="lbl">v-slider</span>
+        <input type="range" class="vslider" aria-labelledby="demo-lbl-slider" min="0" max="100" value="60">
+        <span class="lbl" id="demo-lbl-slider">v-slider</span>
       </div>
       <div class="demo-item">
         <span class="vchip"><span class="dot2"></span>Production</span>
@@ -306,20 +339,20 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
       <h2>All 85 components, live.</h2>
       <p>Every card below is a real preview, not a screenshot. Pick a category — mint badge means it's in the free pack.</p>
     </div>
-    <div class="cat-tabs" id="cat-tabs">
-<button class="cat-tab active" data-tab="actions">Actions<span class="n">7</span></button>
-<button class="cat-tab" data-tab="selection">Selection<span class="n">11</span></button>
-<button class="cat-tab" data-tab="date-and-time">Date &amp; Time<span class="n">7</span></button>
-<button class="cat-tab" data-tab="inputs">Inputs<span class="n">11</span></button>
-<button class="cat-tab" data-tab="color">Color<span class="n">4</span></button>
-<button class="cat-tab" data-tab="overlays">Overlays<span class="n">8</span></button>
-<button class="cat-tab" data-tab="feedback">Feedback<span class="n">6</span></button>
-<button class="cat-tab" data-tab="layout">Layout<span class="n">8</span></button>
-<button class="cat-tab" data-tab="behaviors">Behaviors<span class="n">4</span></button>
-<button class="cat-tab" data-tab="display">Display<span class="n">19</span></button>
+    <div class="cat-tabs" id="cat-tabs" role="tablist" aria-label="Component categories">
+<button class="cat-tab active" data-tab="actions" role="tab" id="tab-actions" aria-selected="true" aria-controls="panel-actions">Actions<span class="n">7</span></button>
+<button class="cat-tab" data-tab="selection" role="tab" id="tab-selection" aria-selected="false" aria-controls="panel-selection" tabindex="-1">Selection<span class="n">11</span></button>
+<button class="cat-tab" data-tab="date-and-time" role="tab" id="tab-date-and-time" aria-selected="false" aria-controls="panel-date-and-time" tabindex="-1">Date &amp; Time<span class="n">7</span></button>
+<button class="cat-tab" data-tab="inputs" role="tab" id="tab-inputs" aria-selected="false" aria-controls="panel-inputs" tabindex="-1">Inputs<span class="n">11</span></button>
+<button class="cat-tab" data-tab="color" role="tab" id="tab-color" aria-selected="false" aria-controls="panel-color" tabindex="-1">Color<span class="n">4</span></button>
+<button class="cat-tab" data-tab="overlays" role="tab" id="tab-overlays" aria-selected="false" aria-controls="panel-overlays" tabindex="-1">Overlays<span class="n">8</span></button>
+<button class="cat-tab" data-tab="feedback" role="tab" id="tab-feedback" aria-selected="false" aria-controls="panel-feedback" tabindex="-1">Feedback<span class="n">6</span></button>
+<button class="cat-tab" data-tab="layout" role="tab" id="tab-layout" aria-selected="false" aria-controls="panel-layout" tabindex="-1">Layout<span class="n">8</span></button>
+<button class="cat-tab" data-tab="behaviors" role="tab" id="tab-behaviors" aria-selected="false" aria-controls="panel-behaviors" tabindex="-1">Behaviors<span class="n">4</span></button>
+<button class="cat-tab" data-tab="display" role="tab" id="tab-display" aria-selected="false" aria-controls="panel-display" tabindex="-1">Display<span class="n">19</span></button>
     </div>
     <div id="cat-panels">
-<div class="cat-panel active" data-panel="actions">
+<div class="cat-panel active" data-panel="actions" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-button</span><span class="badge free">FREE</span></div>
@@ -352,7 +385,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="selection">
+<div class="cat-panel" data-panel="selection" id="panel-selection" role="tabpanel" aria-labelledby="tab-selection" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-select</span><span class="badge free">FREE</span></div>
@@ -401,7 +434,7 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="date-and-time">
+<div class="cat-panel" data-panel="date-and-time" id="panel-date-and-time" role="tabpanel" aria-labelledby="tab-date-and-time" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-date-field</span><span class="badge pro">PRO</span></div>
@@ -434,8 +467,366 @@ footer{border-top:1px solid var(--line);padding:36px 0;text-align:center;color:v
 </div>
 </div>
 
-<div class="cat-panel" data-panel="inputs">
+<div class="cat-panel" data-panel="inputs" id="panel-inputs" role="tabpanel" aria-labelledby="tab-inputs" tabindex="0">
 <div class="comp-grid">
 <div class="comp-card">
   <div class="head"><span class="cname">v-number-field</span><span class="badge pro">PRO</span></div>
   <div class="demo"><div class="d-box d-row" style="padding:5px 4px 5px 10px"><span class="d-txt" style="margin-right:8px">12</span><span class="d-col" style="gap:0"><span style="font-size:8px;color:var(--dim)">▲</span><span style="font-size:8px;color:var(--dim)">▼</span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-text-field</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-box" style="padding:7px 10px;width:100%"><span class="d-txt" style="color:var(--dim)">Email address</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-textarea</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-box" style="padding:7px 10px;width:100%;height:40px"><span class="d-txt" style="color:var(--dim)">Write a message…</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-slider</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-slider-track" style="width:100px"><i style="left:60%"></i></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-toggle-switch</span><span class="badge free">FREE</span></div>
+  <div class="demo"><button class="vtoggle on"></button></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-currency-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px;justify-content:flex-start"><span class="d-txt" style="color:var(--dim);margin-right:4px">$</span><span class="d-txt"><b>49.00</b></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-password-field</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px;justify-content:space-between"><span class="d-txt" style="letter-spacing:2px">••••••••</span><span style="font-size:11px;color:var(--dim)">👁</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-search-bar</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:7px 10px;justify-content:flex-start;gap:6px"><span style="font-size:11px;color:var(--dim)">🔍</span><span class="d-txt" style="color:var(--dim)">Search…</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-otp-input</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-otp"><i class="d-box">4</i><i class="d-box">2</i><i class="d-box">0</i><i class="d-box"></i></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-double-slider</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-slider-track" style="width:100px"><i style="left:30%"></i><i style="left:70%"></i></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-rating</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-rating"><span class="on">★</span><span class="on">★</span><span class="on">★</span><span>★</span><span>★</span></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="color" id="panel-color" role="tabpanel" aria-labelledby="tab-color" tabindex="0">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-color-picker</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-box" style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#F59E0B,#5EEAD4,#8B5CF6)"></span><span class="d-txt"><b>#5EEAD4</b></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-advanced-color-picker</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;gap:6px;width:100%"><span class="d-box" style="height:30px;border-radius:6px;background:linear-gradient(135deg,#fff,#5EEAD4 55%,#052228)"></span><span class="d-box" style="height:8px;border-radius:4px;background:linear-gradient(90deg,red,yellow,lime,cyan,blue,magenta,red)"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-color-button</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><button class="vbtn" style="padding:6px 14px;font-size:12px;background:#8B5CF6;color:#fff">Accent</button></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-color-split-button</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row" style="gap:0"><span class="d-box" style="width:28px;height:28px;border-radius:6px 0 0 6px;background:#F59E0B"></span><button class="vbtn" style="border-radius:0 6px 6px 0;padding:6px 8px;font-size:12px">▾</button></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="behaviors" id="panel-behaviors" role="tabpanel" aria-labelledby="tab-behaviors" tabindex="0">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-draggable</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-box" style="width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:14px">⠿</span><span class="d-txt">Drag to reorder</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-sortable</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:4px"><span class="d-box" style="padding:4px 8px"><span class="d-txt">Item A</span></span><span class="d-box" style="padding:4px 8px;box-shadow:var(--shadow);transform:translateY(-1px)"><span class="d-txt"><b>Item B</b></span></span><span class="d-box" style="padding:4px 8px"><span class="d-txt">Item C</span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-resizable</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box" style="width:56px;height:40px;position:relative"><span style="position:absolute;right:2px;bottom:2px;width:8px;height:8px;border-right:2px solid var(--dim);border-bottom:2px solid var(--dim)"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-keyboard-navigation</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-kbd">↹</span><span class="d-box" style="width:22px;height:22px;outline:2px solid var(--accent)"></span><span class="d-box" style="width:22px;height:22px"></span></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="feedback" id="panel-feedback" role="tabpanel" aria-labelledby="tab-feedback" tabindex="0">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-progress-bar</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-bar" style="width:100px"><i style="width:65%"></i></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-spinner</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-spinner"></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-skeleton</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-skeleton" style="width:100%"><div class="ln" style="width:70%"></div><div class="ln" style="width:45%"></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-toast</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="padding:6px 12px"><span style="color:var(--accent)">✓</span><span class="d-txt">Saved</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-alert-dialog</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:8px"><span class="d-txt"><b>Delete item?</b></span><div class="d-row" style="justify-content:flex-end"><span class="d-pill d-box">Cancel</span><span class="d-pill d-box" style="background:var(--warn);color:var(--warn-ink)">Delete</span></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-empty-state</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col"><span class="d-icon" style="width:36px;height:36px;font-size:16px">📭</span><span class="d-txt">No results found</span></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="overlays" id="panel-overlays" role="tabpanel" aria-labelledby="tab-overlays" tabindex="0">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-dialog</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:6px"><span class="d-txt" style="display:flex;justify-content:space-between;align-items:center"><b>Settings</b><span style="color:var(--dim)">✕</span></span><span class="d-box" style="height:24px"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-drawer</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row" style="justify-content:flex-end;width:100%"><div class="d-box" style="width:34px;height:60px;border-radius:6px 0 0 6px"></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-popover</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:flex-start;gap:4px;width:100%"><span class="d-box" style="padding:4px 10px"><span class="d-txt">Options ▾</span></span><span class="d-box" style="padding:6px 8px;box-shadow:var(--shadow)"><span class="d-txt" style="color:var(--dim)">Popover content</span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-hover-card</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-avatar">JD</span><span class="d-box" style="padding:6px 8px"><span class="d-txt"><b>Jane Doe</b></span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-menu</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:2px"><span class="d-txt" style="padding:3px 6px;background:var(--surface-2);border-radius:4px">Edit</span><span class="d-txt" style="padding:3px 6px">Duplicate</span><span class="d-txt" style="padding:3px 6px;color:var(--warn)">Delete</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-command-palette</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:4px"><span class="d-box d-row" style="padding:5px 8px;justify-content:flex-start"><span class="d-txt">⌘K Search…</span></span><span class="d-txt" style="padding:2px 6px;background:var(--surface-2);border-radius:4px">Open file</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-tooltip</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-tooltip-wrap"><span class="d-box" style="width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px">?</span><span class="d-tooltip-pop" style="opacity:1">Helpful hint</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-announcement-bar</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box d-row" style="width:100%;padding:6px 10px;justify-content:space-between;background:var(--accent);color:var(--accent-ink)"><span class="d-txt" style="color:inherit">🎉 New components shipped</span><span>✕</span></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="layout" id="panel-layout" role="tabpanel" aria-labelledby="tab-layout" tabindex="0">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-card</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-box d-col" style="padding:10px;width:100%;align-items:flex-start;gap:4px"><span class="d-txt"><b>Card title</b></span><span class="d-txt" style="color:var(--dim)">Supporting text</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-divider</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row" style="width:100%;align-items:center;gap:8px"><span style="flex:1;height:1px;background:var(--line)"></span><span class="d-txt">OR</span><span style="flex:1;height:1px;background:var(--line)"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-breadcrumb</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row" style="gap:5px"><span class="d-txt">Home</span><span class="d-txt" style="color:var(--dim)">/</span><span class="d-txt">Settings</span><span class="d-txt" style="color:var(--dim)">/</span><span class="d-txt"><b>Profile</b></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-tab-panel</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-tabs"><span class="on">Overview</span><span>Details</span><span>Activity</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-pagination</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row" style="gap:4px"><span class="d-txt">‹</span><span class="d-pill d-box" style="background:var(--accent);color:var(--accent-ink)">1</span><span class="d-pill d-box">2</span><span class="d-pill d-box">3</span><span class="d-txt">›</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-accordion</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-accordion open"><div class="h">Section A<span class="chev">▸</span></div><div class="b">Expanded content…</div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-collapsible-panel</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-accordion"><div class="h">Advanced options<span class="chev">▸</span></div><div class="b">Hidden until opened</div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-collapsible-panels</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="align-items:stretch;width:100%;gap:0"><div class="d-accordion"><div class="h">Panel 1<span class="chev">▸</span></div></div><div class="d-accordion open"><div class="h">Panel 2<span class="chev">▸</span></div><div class="b">Content</div></div></div></div>
+</div>
+</div>
+</div>
+
+<div class="cat-panel" data-panel="display" id="panel-display" role="tabpanel" aria-labelledby="tab-display" tabindex="0">
+<div class="comp-grid">
+<div class="comp-card">
+  <div class="head"><span class="cname">v-alert-banner</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-box d-row" style="width:100%;padding:8px 10px;justify-content:flex-start;gap:6px;border-color:var(--warn)"><span style="color:var(--warn)">⚠</span><span class="d-txt">Your trial ends in 3 days</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-avatar</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-avatar">AB</div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-badge</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-row" style="position:relative;display:inline-flex"><span class="d-icon">🔔</span><span style="position:absolute;top:-4px;right:-4px;background:var(--warn);color:var(--warn-ink);font-size:9px;border-radius:10px;padding:1px 5px;font-family:'JetBrains Mono'">3</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-chip</span><span class="badge free">FREE</span></div>
+  <div class="demo"><div class="d-chip">Design<span style="opacity:.5">×</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-avatar-group</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row" style="gap:0"><span class="d-avatar" style="margin-right:-8px;border:2px solid var(--surface)">A</span><span class="d-avatar" style="margin-right:-8px;border:2px solid var(--surface);background:var(--warn);color:var(--warn-ink)">B</span><span class="d-avatar" style="border:2px solid var(--surface)">+3</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-calendar</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="width:100%;gap:4px"><span class="d-txt" style="text-align:center"><b>August 2026</b></span><div class="d-cal"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span class="on">8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-calendar-core</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-cal"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-carousel</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col" style="width:100%;gap:6px;align-items:center"><div class="d-box" style="width:100%;height:36px"></div><div class="d-row" style="gap:4px"><span class="d-dot"></span><span class="d-dotd"></span><span class="d-dotd"></span></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-code-block</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box" style="padding:8px;width:100%;text-align:left;background:var(--surface-2)"><span class="d-txt"><span style="color:var(--accent)">const</span> x = 42;</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-countdown</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row" style="gap:4px"><span class="d-box" style="padding:4px 7px"><span class="d-txt"><b>02</b></span></span><span class="d-txt">:</span><span class="d-box" style="padding:4px 7px"><span class="d-txt"><b>45</b></span></span><span class="d-txt">:</span><span class="d-box" style="padding:4px 7px"><span class="d-txt"><b>19</b></span></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-gauge</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-gauge"><i></i></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-image</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-box" style="width:100%;height:50px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:18px">🖼</div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-kbd</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-kbd">⌘</span><span class="d-txt">+</span><span class="d-kbd">K</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-progress-wheel</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div style="width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--accent) 70%, var(--surface-2) 0);display:flex;align-items:center;justify-content:center"><span style="width:22px;height:22px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:'JetBrains Mono'">70%</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-stat</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-col"><span style="font-family:'Space Grotesk';font-size:20px;font-weight:600">2.4k</span><span class="d-txt" style="color:var(--dim)">Active users</span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-steps</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-row"><span class="d-dot"></span><span style="width:20px;height:1px;background:var(--accent)"></span><span class="d-dot"></span><span style="width:20px;height:1px;background:var(--line)"></span><span class="d-dotd"></span></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-table</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-table"><div><span></span><span></span><span></span></div><div><span></span><span></span><span></span></div><div><span></span><span></span><span></span></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-timeline</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-timeline"><div class="row"><span class="d-dot"></span><span class="d-txt">Created</span></div><div class="ln"></div><div class="row"><span class="d-dot"></span><span class="d-txt">Shipped</span></div></div></div>
+</div>
+<div class="comp-card">
+  <div class="head"><span class="cname">v-tree</span><span class="badge pro">PRO</span></div>
+  <div class="demo"><div class="d-tree"><div class="r">▾ src</div><div class="r r2">▸ components</div><div class="r r2">index.js</div></div></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<script>
+(function(){
+  document.querySelectorAll('.comp-card .demo').forEach(function(demo){
+    demo.setAttribute('aria-hidden', 'true');
+  });
+
+  var navToggle = document.getElementById('nav-toggle');
+  var navLinks = document.getElementById('nav-links');
+  if (navToggle && navLinks) {
+    function closeNav(){
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+    navToggle.addEventListener('click', function(){
+      var isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', closeNav);
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') closeNav();
+    });
+  }
+
+  var THEMES = ['light','dark','ocean','sunset'];
+  var THEME_BG = { light: '#F7F7F5', dark: '#0D1117', ocean: '#0B2027', sunset: '#241209' };
+  var root = document.documentElement;
+  var themeButtons = document.querySelectorAll('[data-theme-btn]');
+  var themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+  function setTheme(theme){
+    if (THEMES.indexOf(theme) === -1) return;
+    root.setAttribute('data-theme', theme);
+    themeButtons.forEach(function(btn){
+      btn.classList.toggle('active', btn.dataset.themeBtn === theme);
+    });
+    if (themeColorMeta) themeColorMeta.setAttribute('content', THEME_BG[theme]);
+    try { localStorage.setItem('vkit-theme', theme); } catch (e) {}
+  }
+
+  themeButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){ setTheme(btn.dataset.themeBtn); });
+  });
+
+  try {
+    var saved = localStorage.getItem('vkit-theme');
+    if (saved) setTheme(saved);
+  } catch (e) {}
+
+  var catTabs = Array.prototype.slice.call(document.querySelectorAll('.cat-tab'));
+  var catPanels = document.querySelectorAll('.cat-panel');
+
+  function setCategory(tab, focusTab){
+    catTabs.forEach(function(t){
+      var active = t === tab;
+      t.classList.toggle('active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+      t.tabIndex = active ? 0 : -1;
+    });
+    catPanels.forEach(function(panel){
+      panel.classList.toggle('active', panel.dataset.panel === tab.dataset.tab);
+    });
+    if (focusTab) tab.focus();
+  }
+
+  catTabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ setCategory(tab); });
+    tab.addEventListener('keydown', function(e){
+      var next;
+      if (e.key === 'ArrowRight') next = catTabs[(i + 1) % catTabs.length];
+      else if (e.key === 'ArrowLeft') next = catTabs[(i - 1 + catTabs.length) % catTabs.length];
+      else if (e.key === 'Home') next = catTabs[0];
+      else if (e.key === 'End') next = catTabs[catTabs.length - 1];
+      if (next) {
+        e.preventDefault();
+        setCategory(next, true);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

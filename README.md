@@ -23,6 +23,17 @@ or serve it locally:
 npx serve .
 ```
 
+## Testing
+
+`scripts/smoke-test.js` is a maintainer-only smoke test for the landing
+page's interactive bits (theme switcher, category tabs, skip link, mobile
+nav). It needs [Playwright](https://playwright.dev/) installed somewhere
+Node can find it — visitors and anyone downloading the zips never need it.
+
+```bash
+node scripts/smoke-test.js
+```
+
 ## Deploying
 
 Push to `main` and connect this repo to Vercel (or Netlify) — both auto-detect
